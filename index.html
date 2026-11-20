@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07111f" />
+<title>Happy 20/11 | Cô Bích Ngọc</title>
+<style>
+  :root {
+    --bg: #07111f;
+    --panel: rgba(12, 25, 43, .88);
+    --line: rgba(104, 224, 190, .2);
+    --mint: #6ee7b7;
+    --cyan: #67e8f9;
+    --purple: #c4b5fd;
+    --gold: #facc8b;
+    --muted: #9fb3c8;
+    --white: #eef7ff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; min-height: 100vh; overflow-x: hidden; color: var(--white);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(ellipse at 15% 15%, rgba(31, 111, 139, .2), transparent 38%),
+      radial-gradient(ellipse at 85% 80%, rgba(109, 40, 217, .16), transparent 35%),
+      linear-gradient(135deg, #050b14, #0a1728 55%, #07111f);
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background-image: linear-gradient(rgba(103,232,249,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103,232,249,.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 95%);
+  }
+  #codeRain { position: fixed; inset: 0; width: 100%; height: 100%; opacity: .15; z-index: -1; pointer-events:none; }
+  .glow { position: fixed; width: 280px; height: 280px; border-radius: 50%; filter: blur(90px); opacity: .13; pointer-events:none; z-index:-1; }
+  .glow.one { background:#22d3ee; top:15%; left:-130px; }
+  .glow.two { background:#8b5cf6; bottom:5%; right:-130px; }
+  .wrap { width: min(1080px, calc(100% - 36px)); margin: auto; padding: 28px 0 34px; }
+  .topline { display:flex; justify-content:space-between; align-items:center; gap:12px; color:var(--muted); font: 12px/1.5 ui-monospace, monospace; letter-spacing:.08em; text-transform:uppercase; }
+  .status { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); padding:8px 12px; border-radius:99px; background:rgba(8,24,38,.7); }
+  .dot { width:7px; height:7px; border-radius:50%; background:var(--mint); box-shadow:0 0 12px var(--mint); }
+  header { text-align:center; padding: clamp(44px, 8vw, 86px) 0 34px; }
+  .eyebrow { color:var(--mint); font: 600 13px ui-monospace, monospace; letter-spacing:.2em; text-transform:uppercase; }
+  h1 { margin:16px 0 10px; font-size:clamp(42px, 8vw, 82px); line-height:1.02; letter-spacing:-.055em; font-weight:850; }
+  h1 .gradient { background:linear-gradient(100deg, #e7fbff, #72e8d0 48%, #c4b5fd); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .subtitle { margin:0 auto; max-width:720px; color:#b8c9da; font-size:clamp(15px, 2.2vw, 19px); line-height:1.8; }
+  .subtitle strong { color:var(--gold); font-weight:650; }
+  .date { display:inline-block; margin-top:24px; padding:10px 18px; border:1px solid rgba(250,204,139,.35); border-radius:12px; color:var(--gold); background:rgba(250,204,139,.07); font:600 14px ui-monospace, monospace; }
+  .editor { max-width:850px; margin:24px auto 0; border:1px solid rgba(128,190,220,.24); border-radius:18px; overflow:hidden; background:rgba(5,13,24,.9); box-shadow:0 25px 90px rgba(0,0,0,.35), 0 0 55px rgba(34,211,238,.06); text-align:left; }
+  .editorbar { display:flex; align-items:center; gap:8px; padding:14px 17px; background:rgba(255,255,255,.035); border-bottom:1px solid rgba(255,255,255,.08); }
+  .traffic { display:flex; gap:6px; margin-right:8px; }
+  .traffic i { width:9px; height:9px; border-radius:50%; display:block; background:#fb7185; }
+  .traffic i:nth-child(2) { background:#fbbf24; } .traffic i:nth-child(3) { background:#4ade80; }
+  .filename { color:#a9bdd0; font:12px ui-monospace, monospace; }
+  .filetag { margin-left:auto; color:#71879c; font:11px ui-monospace, monospace; }
+  pre { margin:0; padding:24px clamp(16px, 4vw, 36px) 28px; overflow-x:auto; color:#d7e6f5; font:clamp(12px, 1.65vw, 14px)/1.95 ui-monospace, SFMono-Regular, Consolas, monospace; tab-size:2; }
+  .ln { display:inline-block; width:28px; color:#50657a; user-select:none; }
+  .kw { color:#c4b5fd; } .type { color:#67e8f9; } .str { color:#a7f3d0; } .fn { color:#facc8b; } .cm { color:#71879c; font-style:italic; } .num { color:#f9a8d4; }
+  .cursor { display:inline-block; width:7px; height:15px; vertical-align:-2px; background:var(--mint); animation:blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .message { position:relative; max-width:850px; margin:30px auto 0; padding:clamp(24px, 5vw, 42px); border:1px solid var(--line); border-radius:20px; background:linear-gradient(145deg, rgba(15,36,55,.88), rgba(10,20,38,.9)); box-shadow:0 20px 60px rgba(0,0,0,.2); text-align:center; }
+  .message::before { content:"// A message for my teacher"; position:absolute; top:-10px; left:22px; padding:0 10px; color:var(--mint); background:#0d1b2c; font:12px ui-monospace, monospace; }
+  .message h2 { margin:4px 0 16px; color:var(--white); font-size:clamp(23px, 4vw, 32px); }
+  .message h2 span { color:var(--gold); }
+  .message p { max-width:710px; margin:12px auto; color:#c2d2e1; font-size:16px; line-height:1.9; }
+  .message p strong { color:#8cebd0; }
+  .signature { margin-top:24px; color:var(--purple); font:italic 15px ui-monospace, monospace; }
+  .terminal { max-width:850px; margin:24px auto 0; padding:18px 22px; border:1px solid rgba(196,181,253,.2); border-radius:14px; background:rgba(7,13,26,.8); color:#9db2c7; font:13px/1.9 ui-monospace, monospace; text-align:left; }
+  .terminal .prompt { color:var(--mint); } .terminal .success { color:#a7f3d0; }
+  .terminal .output { color:#facc8b; }
+  footer { padding:32px 0 6px; text-align:center; color:#71879c; font:12px ui-monospace, monospace; }
+  .heart { position:fixed; bottom:-30px; color:#8cebd0; opacity:0; pointer-events:none; animation:floatUp 7s linear forwards; text-shadow:0 0 12px rgba(110,231,183,.6); }
+  @keyframes floatUp { 10% {opacity:.65} 100% { transform:translateY(-110vh) translateX(35px) rotate(25deg); opacity:0; } }
+  @media (max-width:600px) { .wrap{width:min(100% - 24px,1080px)} .topline{font-size:10px} header{padding-top:58px} .message p{font-size:15px} .filetag{display:none} }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; } }
+</style>
+</head>
+<body>
+<canvas id="codeRain" aria-hidden="true"></canvas>
+<div class="glow one"></div><div class="glow two"></div>
+<main class="wrap">
+  <div class="topline">
+    <span> <span style="color:var(--mint)">●</span> school.exe / gratitude.cpp</span>
+    <span class="status"><span class="dot"></span> compiled with love</span>
+  </div>
+
+  <header>
+    <div class="eyebrow">/* Một lời tri ân gửi đến cô */</div>
+    <h1><span class="gradient">Happy 20/11</span></h1>
+    <p class="subtitle">Gửi đến <strong>cô Bích Ngọc</strong> — người đã kiên nhẫn đồng hành, truyền cảm hứng và giúp chúng em viết nên những dòng code đầu tiên.</p>
+    <div class="date">20 . 11 — NGÀY NHÀ GIÁO VIỆT NAM</div>
+  </header>
+
+  <section class="editor" aria-label="Đoạn code C++ chúc mừng cô">
+    <div class="editorbar">
+      <div class="traffic"><i></i><i></i><i></i></div>
+      <span class="filename">loi_chuc_gui_co.cpp</span>
+      <span class="filetag">C++ · UTF-8</span>
+    </div>
+    <pre><code><span class="ln">01</span><span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
+<span class="ln">02</span><span class="kw">using namespace</span> std;
+<span class="ln">03</span>
+<span class="ln">04</span><span class="kw">int</span> <span class="fn">main</span>() {
+<span class="ln">05</span>    <span class="type">string</span> giao_vien = <span class="str">"Co Bich Ngoc"</span>;
+<span class="ln">06</span>    <span class="type">int</span> long_biet_on = <span class="num">100</span>;
+<span class="ln">07</span>
+<span class="ln">08</span>    <span class="cm">// Những buổi học Tin học thật đáng nhớ...</span>
+<span class="ln">09</span>    <span class="kw">for</span> (<span class="kw">int</span> ngay = <span class="num">1</span>; ngay &lt;= <span class="num">365</span>; ngay++) {
+<span class="ln">10</span>        cout &lt;&lt; <span class="str">"Cam on co da tan tam day bao!"</span> &lt;&lt; endl;
+<span class="ln">11</span>    }
+<span class="ln">12</span>
+<span class="ln">13</span>    cout &lt;&lt; <span class="str">"Chuc co 20/11 that hanh phuc!"</span>;
+<span class="ln">14</span>    <span class="kw">return</span> <span class="num">0</span>;
+<span class="ln">15</span>} <span class="cursor"></span></code></pre>
+  </section>
+
+  <section class="message">
+    <h2>Gửi cô <span>Bích Ngọc</span> 💚</h2>
+    <p>Nhân ngày Nhà giáo Việt Nam 20/11, chúng em xin gửi đến cô những lời chúc tốt đẹp và chân thành nhất. Chúc cô luôn mạnh khỏe, vui vẻ, hạnh phúc và giữ mãi ngọn lửa nhiệt huyết với nghề.</p>
+    <p>Cảm ơn cô vì những buổi học thêm Tin học, vì đã kiên nhẫn giảng lại từng kiến thức, cùng chúng em tìm lỗi sai trong từng dòng code và không bỏ cuộc khi chương trình cứ báo <strong>error</strong>. Nhờ cô, những dòng lệnh C++ tưởng chừng khô khan cũng trở nên thú vị và dễ hiểu hơn.</p>
+    <p>Mong rằng cô sẽ luôn có thật nhiều niềm vui, có thêm nhiều thế hệ học trò chăm ngoan và thành công. Dù sau này chúng em có viết bao nhiêu chương trình đi nữa, chúng em vẫn sẽ nhớ người đã dạy mình những dòng code đầu tiên.</p>
+    <div class="signature">// Với tất cả lòng biết ơn — học trò của cô</div>
+  </section>
+
+  <div class="terminal" aria-label="Kết quả chương trình">
+    <div><span class="prompt">student@classroom:~$</span> g++ loi_chuc_gui_co.cpp -o loi_chuc</div>
+    <div class="success">[✓] Build successful — 0 errors, 0 warnings</div>
+    <div><span class="prompt">student@classroom:~$</span> ./loi_chuc</div>
+    <div class="output">✨ Chuc co Bich Ngoc mot ngay 20/11 that am ap va y nghia! ✨</div>
+    <div><span class="success">Process finished with exit code 0</span></div>
+  </div>
+
+  <footer>/* Made with ❤️, gratitude & a little bit of C++ */</footer>
+</main>
+<script>
+  // Hiệu ứng mưa ký tự kiểu màn hình lập trình
+  (() => {
+    const canvas = document.getElementById('codeRain');
+    const ctx = canvas.getContext('2d');
+    const chars = '01{}[]<>#;=+-*/ C++';
+    const fontSize = 15;
+    let columns = 0, drops = [];
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(innerWidth * dpr);
+      canvas.height = Math.floor(innerHeight * dpr);
+      canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      columns = Math.ceil(innerWidth / fontSize);
+      drops = Array(columns).fill(1).map(() => Math.random() * -50);
+    }
+    function draw() {
+      ctx.fillStyle = 'rgba(5, 12, 22, 0.09)';
+      ctx.fillRect(0, 0, innerWidth, innerHeight);
+      ctx.font = fontSize + 'px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        const ch = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillStyle = i % 5 === 0 ? '#67e8f9' : '#6ee7b7';
+        ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > innerHeight && Math.random() > .975) drops[i] = 0;
+        drops[i] += .45;
+      }
+      requestAnimationFrame(draw);
+    }
+    resize(); addEventListener('resize', resize); draw();
+  })();
+  // Những biểu tượng nhỏ bay lên nhẹ nhàng
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) setInterval(() => {
+    const el = document.createElement('span');
+    el.className = 'heart'; el.textContent = Math.random() > .5 ? '✦' : '♥';
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (10 + Math.random() * 12) + 'px';
+    el.style.animationDuration = (6 + Math.random() * 4) + 's';
+    document.body.appendChild(el); setTimeout(() => el.remove(), 10500);
+  }, 1100);
+</script>
+</body>
+</html>
